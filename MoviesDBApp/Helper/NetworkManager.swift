@@ -9,14 +9,23 @@ import Foundation
 
 enum EndPoint: String {
     case topRatedMovies = "movie/top_rated"
-    case popularMovie = "movie/popular"
+    case popularMovies = "movie/popular"
+    case nowPlayingMovies = "movie/now_playing"
+    case trendingTodayMovies = "trending/movie/day"
+    case trendingWeekMovies = "trending/movie/week"
     
     var title: String {
         switch self {
         case .topRatedMovies:
             return "Top rated movies"
-        case .popularMovie:
+        case .popularMovies:
             return "Top popular"
+        case .nowPlayingMovies:
+            return "Now Playing"
+        case .trendingTodayMovies:
+            return "Trending"
+        case .trendingWeekMovies:
+            return "Trending"
         }
     }
 }

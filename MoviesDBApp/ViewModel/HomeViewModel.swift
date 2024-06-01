@@ -15,6 +15,7 @@ class HomeViewModel {
             getMovies(page: page)
         }
     }
+    
     var movies: [Movie]? {
         didSet {
             moviesListUpdated?()
@@ -37,8 +38,10 @@ class HomeViewModel {
         switch self.selectedEndPoint {
         case .topRatedMovies:
             getTopRatedMovies(page: page)
-        case .popularMovie:
+        case .popularMovies:
             getPopular(page: page)
+        default:
+            break
         }
     }
     
@@ -46,7 +49,7 @@ class HomeViewModel {
         NetworkManager.shared.getRequest(endpoint: .topRatedMovies, queryParams: ["page": page], responseModel: MoviesListModel.self) { status in
             switch status {
             case .success(let response):
-                print(response)
+//                print(response)
                 self.movies?.append(contentsOf: response.results ?? [])
                 self.totalResults = response.totalResults ?? 0
                 self.totalPages = response.totalPages ?? 0
@@ -57,7 +60,7 @@ class HomeViewModel {
     }
     
     func getPopular(page: Int) {
-        NetworkManager.shared.getRequest(endpoint: .popularMovie, queryParams: ["page": page], responseModel: MoviesListModel.self) { status in
+        NetworkManager.shared.getRequest(endpoint: .popularMovies, queryParams: ["page": page], responseModel: MoviesListModel.self) { status in
             switch status {
             case .success(let response):
                 print(response)

@@ -41,36 +41,12 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingTableCell.reuseIdentifier) as? TrendingTableCell else { return UITableViewCell() }
+        cell.movies = self.viewModel.movies
         return cell
     }
 }
-
-//extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return self.viewModel.movies?.count ?? 0
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesCollectionCell.identifier, for: indexPath) as? MoviesCollectionCell, let model = self.viewModel.movies?[indexPath.item] else { return UICollectionViewCell() }
-//        cell.backgroundColor = .red
-//        cell.layer.cornerRadius = 8
-//        cell.posterImageView.loadMoviePoster(imagePath: model.posterPath)
-//        cell.titleLbl.text = model.title
-//        //        print(indexPath.row, indexPath.item, self.viewModel.movies?.count)
-//        if self.viewModel.page <= self.viewModel.totalPages && indexPath.item == collectionView.numberOfItems(inSection: indexPath.section) - 1 {
-//            self.viewModel.page += 1
-//            self.viewModel.getTopRatedMovies(page: self.viewModel.page)
-//        }
-//        return cell
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let width = (collectionView.bounds.width - 16) / 2
-//        return CGSize(width: width, height: 240)
-//    }
-//}
