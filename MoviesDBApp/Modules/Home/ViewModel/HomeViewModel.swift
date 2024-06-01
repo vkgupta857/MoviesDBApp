@@ -32,7 +32,7 @@ enum CategoryType {
     }
 }
 
-class HomeViewModel {
+class HomeViewModel: BaseViewModel {
     var categories: [CategoryType] = [.trending, .nowPlaying, .popular, .topRated]
     var state: ViewModelState = .loading {
         didSet {

@@ -65,6 +65,13 @@ class HomeViewController: UIViewController {
     @objc func refresh(_ sender: AnyObject) {
         self.viewModel.setupData()
     }
+    
+    func saveMovie(movie: Movie) {
+        let vm = AddToPlaylistViewModel(newMovie: movie)
+        let vc = AddToPlaylistViewController.getInstance(vm)
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true)
+    }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -81,6 +88,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingTableCell.reuseIdentifier) as? TrendingTableCell else { return UITableViewCell() }
             cell.configureCell(todayMovies: self.viewModel.trendingTodayMovies, weekMovies: self.viewModel.trendingWeekMovies)
             cell.titleLbl.text = category.title
+            cell.delegate = self
             return cell
         case .nowPlaying:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviesTableCell.reuseIdentifier) as? MoviesTableCell else { return UITableViewCell() }
@@ -118,7 +126,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension HomeViewController: TrendingTableCellDelegate {
+    func didSelectOptions(movie: Movie) {
+        saveMovie(movie: movie)
+    }
+}
+
 extension HomeViewController: MoviesTableCellDelegate {
+    func didSelectOption(movie: Movie) {
+        saveMovie(movie: movie)
+    }
+    
     func didTapAllBtn(cell: MoviesTableCell) {
         
     }

@@ -19,23 +19,26 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="anj-cg-eag">
-                        <rect key="frame" x="8" y="8" width="304" height="327"/>
+                        <rect key="frame" x="8" y="8" width="304" height="328"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trending" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLe-uv-qcy">
-                                <rect key="frame" x="0.0" y="2.3333333333333357" width="91" height="26.333333333333329"/>
+                                <rect key="frame" x="0.0" y="2.9999999999999982" width="91" height="26.333333333333329"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="981-kc-v0w">
-                                <rect key="frame" x="141" y="0.0" width="163" height="32"/>
+                                <rect key="frame" x="141" y="0.0" width="163" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="ZQD-e2-SAE"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Today"/>
                                     <segment title="This week"/>
                                 </segments>
                             </segmentedControl>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="bqb-Ei-IGf">
-                                <rect key="frame" x="0.0" y="47" width="304" height="280"/>
+                                <rect key="frame" x="0.0" y="48" width="304" height="280"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="280" id="xut-b0-anc"/>

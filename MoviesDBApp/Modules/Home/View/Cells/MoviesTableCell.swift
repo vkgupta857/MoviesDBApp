@@ -10,6 +10,7 @@ import UIKit
 protocol MoviesTableCellDelegate: AnyObject {
     func didTapAllBtn(cell: MoviesTableCell)
     func didSelectToggleBtn()
+    func didSelectOption(movie: Movie)
 }
 
 class MoviesTableCell: UITableViewCell, Reusable {
@@ -52,6 +53,14 @@ class MoviesTableCell: UITableViewCell, Reusable {
     }
 }
 
+extension MoviesTableCell: MovieCellDelegate {
+    func didSelectPlaylistOptions(cell: MovieCollectionCell) {
+        if let indexPath = collectionView.indexPath(for: cell), indexPath.item < movies?.count ?? 0, let movie = movies?[indexPath.item] {
+            delegate?.didSelectOption(movie: movie)
+        }
+    }
+}
+
 extension MoviesTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movies?.count ?? 0
@@ -60,6 +69,7 @@ extension MoviesTableCell: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionCell.reuseIdentifier, for: indexPath) as? MovieCollectionCell, indexPath.item < movies?.count ?? 0, let movie = movies?[indexPath.item] else { return UICollectionViewCell() }
         cell.configureCell(movie: movie)
+        cell.delegate = self
         return cell
     }
     

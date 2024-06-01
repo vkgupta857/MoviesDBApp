@@ -8,6 +8,10 @@
 import UIKit
 import SDWebImage
 
+protocol MovieCellDelegate: AnyObject {
+    func didSelectPlaylistOptions(cell: MovieCollectionCell)
+}
+
 class MovieCollectionCell: UICollectionViewCell, Reusable {
 
     @IBOutlet weak var containerView: UIView!
@@ -15,10 +19,23 @@ class MovieCollectionCell: UICollectionViewCell, Reusable {
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var yearLbl: UILabel!
     
+    weak var delegate: MovieCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         imageView.layer.cornerRadius = 8
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+        longPressRecognizer.minimumPressDuration = 0.5
+        longPressRecognizer.delaysTouchesBegan = true
+        self.contentView.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    @objc func longPressed(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            delegate?.didSelectPlaylistOptions(cell: self)
+        }
     }
     
     func configureCell(movie: Movie) {

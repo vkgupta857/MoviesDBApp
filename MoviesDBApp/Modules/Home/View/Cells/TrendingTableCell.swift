@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TrendingTableCellDelegate: AnyObject {
+    func didSelectOptions(movie: Movie)
+}
+
 class TrendingTableCell: UITableViewCell, Reusable {
 
     @IBOutlet weak var titleLbl: UILabel!
@@ -21,6 +25,8 @@ class TrendingTableCell: UITableViewCell, Reusable {
     
     private var trendingTodayMovies: [Movie] = []
     private var trendingWeekMovies: [Movie] = []
+    
+    weak var delegate: TrendingTableCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -63,6 +69,14 @@ class TrendingTableCell: UITableViewCell, Reusable {
     }
 }
 
+extension TrendingTableCell: MovieCellDelegate {
+    func didSelectPlaylistOptions(cell: MovieCollectionCell) {
+        if let indexPath = collectionView.indexPath(for: cell), indexPath.item < selectedIndexMovies?.count ?? 0, let movie = selectedIndexMovies?[indexPath.item] {
+            delegate?.didSelectOptions(movie: movie)
+        }
+    }
+}
+
 extension TrendingTableCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return selectedIndexMovies?.count ?? 0
@@ -71,6 +85,7 @@ extension TrendingTableCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionCell.reuseIdentifier, for: indexPath) as? MovieCollectionCell, indexPath.item < selectedIndexMovies?.count ?? 0, let movie = selectedIndexMovies?[indexPath.item] else { return UICollectionViewCell() }
         cell.configureCell(movie: movie)
+        cell.delegate = self
         return cell
     }
     
