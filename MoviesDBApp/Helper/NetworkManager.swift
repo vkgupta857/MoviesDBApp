@@ -30,6 +30,20 @@ enum EndPoint: String {
     }
 }
 
+enum APIError: Error {
+    case decodingError
+    case networkError
+    
+    var description: String {
+        switch self {
+        case .decodingError:
+            "Decoding Error"
+        case .networkError:
+            "Network Error"
+        }
+    }
+}
+
 enum HTTPMethod: String {
     case get = "GET"
 }
@@ -46,10 +60,10 @@ class NetworkManager {
     
     let apiKey = "c77a451f55684047265eed8393fe387d"
     
-    func getRequest<T: Codable>(endpoint: EndPoint, method: HTTPMethod = .get, queryParams: [String: Any], responseModel: T.Type, completion: ((Swift.Result<T, Error>) -> Void)?) {
+    func getRequest<T: Decodable>(endpoint: EndPoint, method: HTTPMethod = .get, queryParams: [String: Any]? = nil, responseModel: T.Type, completion: ((Swift.Result<T, APIError>) -> Void)?) {
         
         guard let url = URL(string: baseUrl + endpoint.rawValue), var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            completion?(.failure("Error" as! Error))
+            completion?(.failure(.networkError))
             return
         }
 
@@ -73,13 +87,15 @@ class NetworkManager {
                         completion?(.success(json))
                     } catch let error {
                         print(error.localizedDescription)
-                        completion?(.failure(error))
+                        completion?(.failure(.decodingError))
                     }
                 } else {
                     print(error?.localizedDescription ?? "")
-                    completion?(.failure("Error" as! Error))
+                    completion?(.failure(.networkError))
                 }
             }.resume()
+        } else {
+            completion?(.failure(.networkError))
         }
     }
 }

@@ -9,11 +9,15 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var moviesTableView: UITableView!
+    @IBOutlet weak var errorView: UIView!
     
     lazy var viewModel: HomeViewModel = {
         return HomeViewModel()
     }()
+    
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,28 +29,103 @@ class HomeViewController: UIViewController {
     func setupUI() {
         moviesTableView.delegate = self
         moviesTableView.dataSource = self
-//        moviesTableView.register(TrendingTableCell.nib, forCellWithReuseIdentifier: TrendingTableCell.reuseIdentifier)
+        moviesTableView.estimatedRowHeight = UITableView.automaticDimension
+        moviesTableView.rowHeight = UITableView.automaticDimension
         moviesTableView.register(TrendingTableCell.nib, forCellReuseIdentifier: TrendingTableCell.reuseIdentifier)
+        moviesTableView.register(MoviesTableCell.nib, forCellReuseIdentifier: MoviesTableCell.reuseIdentifier)
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        moviesTableView.addSubview(refreshControl)
     }
     
     func setupVM() {
-        self.viewModel.moviesListUpdated = { [weak self] in
+        viewModel.apiStateUpdated = { [weak self] in
             DispatchQueue.main.async {
+                self?.refreshControl.endRefreshing()
+                self?.activityIndicator.isHidden = self?.viewModel.state == .loaded
+                self?.errorView.isHidden = self?.viewModel.errorMessage == nil
+                self?.updateError()
+                self?.moviesTableView.isHidden = self?.viewModel.errorMessage != nil
                 self?.moviesTableView.reloadData()
             }
         }
-        self.viewModel.getMovies()
+        
+        self.viewModel.setupData()
+    }
+    
+    func updateError() {
+        for view in errorView.subviews where type(of: view) == UILabel.self {
+            if let label = view as? UILabel {
+                label.text = self.viewModel.errorMessage
+            }
+        }
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        self.viewModel.setupData()
     }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return viewModel.categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingTableCell.reuseIdentifier) as? TrendingTableCell else { return UITableViewCell() }
-        cell.movies = self.viewModel.movies
-        return cell
+        guard indexPath.row < viewModel.categories.count else { return UITableViewCell() }
+        
+        let category = viewModel.categories[indexPath.row]
+        switch category {
+        case .trending:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TrendingTableCell.reuseIdentifier) as? TrendingTableCell else { return UITableViewCell() }
+            cell.configureCell(todayMovies: self.viewModel.trendingTodayMovies, weekMovies: self.viewModel.trendingWeekMovies)
+            cell.titleLbl.text = category.title
+            return cell
+        case .nowPlaying:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviesTableCell.reuseIdentifier) as? MoviesTableCell else { return UITableViewCell() }
+            cell.movies = self.viewModel.nowPlayingMovies
+            cell.titleLbl.text = category.title
+            cell.delegate = self
+            return cell
+        case .popular:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviesTableCell.reuseIdentifier) as? MoviesTableCell else { return UITableViewCell() }
+            cell.titleLbl.text = category.title
+            cell.movies = self.viewModel.popularMovies
+            cell.delegate = self
+            return cell
+        case .topRated:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: MoviesTableCell.reuseIdentifier) as? MoviesTableCell else { return UITableViewCell() }
+            cell.titleLbl.text = category.title
+            cell.movies = self.viewModel.topRatedMovies
+            cell.delegate = self
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let category = viewModel.categories[indexPath.row]
+        switch category {
+        case .trending:
+            return viewModel.trendingTodayMovies.isEmpty ? 0 : UITableView.automaticDimension
+        case .nowPlaying:
+            return viewModel.nowPlayingMovies.isEmpty ? 0 : UITableView.automaticDimension
+        case .popular:
+            return viewModel.popularMovies.isEmpty ? 0 : UITableView.automaticDimension
+        case .topRated:
+            return viewModel.topRatedMovies.isEmpty ? 0 : UITableView.automaticDimension
+        }
+    }
+}
+
+extension HomeViewController: MoviesTableCellDelegate {
+    func didTapAllBtn(cell: MoviesTableCell) {
+        
+    }
+    
+    func didSelectToggleBtn() {
+        self.moviesTableView.beginUpdates()
+        self.moviesTableView.setNeedsDisplay()
+        self.moviesTableView.endUpdates()
     }
 }
