@@ -48,6 +48,7 @@
 		75FE5BED2C0C44720017442D /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE5BEC2C0C44720017442D /* MovieListViewModel.swift */; };
 		75FE5BF42C0C604C0017442D /* HomePlaylistTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE5BF22C0C604C0017442D /* HomePlaylistTableCell.swift */; };
 		75FE5BF52C0C604C0017442D /* HomePlaylistTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75FE5BF32C0C604C0017442D /* HomePlaylistTableCell.xib */; };
+		75FE5BF72C0C68CA0017442D /* PlaylistManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE5BF62C0C68CA0017442D /* PlaylistManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		75FE5BEC2C0C44720017442D /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
 		75FE5BF22C0C604C0017442D /* HomePlaylistTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePlaylistTableCell.swift; sourceTree = "<group>"; };
 		75FE5BF32C0C604C0017442D /* HomePlaylistTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePlaylistTableCell.xib; sourceTree = "<group>"; };
+		75FE5BF62C0C68CA0017442D /* PlaylistManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistManagerTests.swift; sourceTree = "<group>"; };
 		8B7D7FDF88C62D35D3C8C95D /* Pods_MoviesDBAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoviesDBAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A59C8F1DEAC3BE29CD419D1 /* Pods-MoviesDBAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesDBAppTests.release.xcconfig"; path = "Target Support Files/Pods-MoviesDBAppTests/Pods-MoviesDBAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A9508EFF12A58524DA1649E2 /* Pods-MoviesDBApp-MoviesDBAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesDBApp-MoviesDBAppUITests.release.xcconfig"; path = "Target Support Files/Pods-MoviesDBApp-MoviesDBAppUITests/Pods-MoviesDBApp-MoviesDBAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				754A86AB2C0A4387009543FF /* MoviesDBAppTests.swift */,
+				75FE5BF62C0C68CA0017442D /* PlaylistManagerTests.swift */,
 			);
 			path = MoviesDBAppTests;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				754A86AC2C0A4387009543FF /* MoviesDBAppTests.swift in Sources */,
+				75FE5BF72C0C68CA0017442D /* PlaylistManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -899,6 +903,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MARKETING_VERSION = 1.0;
@@ -919,6 +924,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				MARKETING_VERSION = 1.0;
@@ -938,6 +944,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MoviesDBAppUITests;
@@ -956,6 +963,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.MoviesDBAppUITests;
