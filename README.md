@@ -19,7 +19,8 @@ It lists movies in the following categories
 - Pull to refresh
 - Unit test cases
 
-### Tools used
+### Tech stack
+- MVVM
 - XCode 15
 - Swift
-- Storyboards
+- UIKit using XIBs and storyboards
