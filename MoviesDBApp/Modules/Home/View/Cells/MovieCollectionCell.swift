@@ -48,7 +48,7 @@ class MovieCollectionCell: UICollectionViewCell, Reusable {
     }
     
     func configureCell(playlist: Playlist) {
-        imageView.image = UIImage(systemName: "movieclapper")
+        imageView.image = UIImage(systemName: "play.square.stack")
         titleLbl.text = playlist.name
         titleLbl.textAlignment = .center
         yearLbl.isHidden = true

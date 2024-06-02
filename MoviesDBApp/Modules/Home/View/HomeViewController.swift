@@ -163,6 +163,7 @@ extension HomeViewController: MoviesTableCellDelegate {
         if let indexPath = moviesTableView.indexPath(for: cell) {
             var movies: [Movie] = []
             let category = self.viewModel.categories[indexPath.row]
+            var detailType: DetailType = .movie
             switch category {
             case .nowPlaying:
                 movies = viewModel.nowPlayingMovies
@@ -172,11 +173,12 @@ extension HomeViewController: MoviesTableCellDelegate {
                 movies = viewModel.popularMovies
             case .playlists:
                 movies = viewModel.playlists[indexPath.row].movies
+                detailType = .playlist
             case .trending:
                 break
             }
             if movies.isEmpty == false {
-                let vc = MovieListViewController.getInstance(MovieListViewModel(title: category.title, detailType: .playlist, movies: movies))
+                let vc = MovieListViewController.getInstance(MovieListViewModel(title: category.title, detailType: detailType, movies: movies))
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
