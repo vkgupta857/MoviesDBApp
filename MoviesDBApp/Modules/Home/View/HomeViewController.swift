@@ -38,6 +38,7 @@ class HomeViewController: UIViewController {
         moviesTableView.rowHeight = UITableView.automaticDimension
         moviesTableView.register(TrendingTableCell.nib, forCellReuseIdentifier: TrendingTableCell.reuseIdentifier)
         moviesTableView.register(MoviesTableCell.nib, forCellReuseIdentifier: MoviesTableCell.reuseIdentifier)
+        moviesTableView.register(HomePlaylistTableCell.nib, forCellReuseIdentifier: HomePlaylistTableCell.reuseIdentifier)
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -74,8 +75,16 @@ class HomeViewController: UIViewController {
     func saveMovie(movie: Movie) {
         let vm = AddToPlaylistViewModel(newMovie: movie)
         let vc = AddToPlaylistViewController.getInstance(vm)
+        vc.delegate = self
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true)
+    }
+}
+
+extension HomeViewController: AddToPlaylistDelegate {
+    func didDismissController() {
+        self.viewModel.getPlaylists()
+        self.moviesTableView.reloadData()
     }
 }
 
@@ -113,6 +122,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.movies = self.viewModel.topRatedMovies
             cell.delegate = self
             return cell
+        case .playlists:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: HomePlaylistTableCell.reuseIdentifier) as? HomePlaylistTableCell else { return UITableViewCell() }
+            cell.titleLbl.text = category.title
+            cell.playlists = self.viewModel.playlists
+            cell.delegate = self
+            return cell
         }
     }
     
@@ -127,6 +142,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return viewModel.popularMovies.isEmpty ? 0 : UITableView.automaticDimension
         case .topRated:
             return viewModel.topRatedMovies.isEmpty ? 0 : UITableView.automaticDimension
+        case .playlists:
+            return viewModel.playlists.isEmpty ? 0 : UITableView.automaticDimension
         }
     }
 }
@@ -144,7 +161,7 @@ extension HomeViewController: MoviesTableCellDelegate {
     
     func didTapAllBtn(cell: MoviesTableCell) {
         if let indexPath = moviesTableView.indexPath(for: cell) {
-            var movies: [Movie]
+            var movies: [Movie] = []
             let category = self.viewModel.categories[indexPath.row]
             switch category {
             case .nowPlaying:
@@ -153,11 +170,15 @@ extension HomeViewController: MoviesTableCellDelegate {
                 movies = viewModel.topRatedMovies
             case .popular:
                 movies = viewModel.popularMovies
+            case .playlists:
+                movies = viewModel.playlists[indexPath.row].movies
             case .trending:
-                movies = viewModel.trendingTodayMovies
+                break
             }
-            let vc = MovieListViewController.getInstance(MovieListViewModel(title: category.title, detailType: .playlist, movies: movies))
-            self.navigationController?.pushViewController(vc, animated: true)
+            if movies.isEmpty == false {
+                let vc = MovieListViewController.getInstance(MovieListViewModel(title: category.title, detailType: .playlist, movies: movies))
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
@@ -165,5 +186,13 @@ extension HomeViewController: MoviesTableCellDelegate {
         self.moviesTableView.beginUpdates()
         self.moviesTableView.setNeedsDisplay()
         self.moviesTableView.endUpdates()
+    }
+}
+
+extension HomeViewController: HomePlaylistTableCellDelegate {
+    func didSelectItem(at: IndexPath, playlist: Playlist) {
+        let vm = MovieListViewModel(title: playlist.name, detailType: .playlist, movies: playlist.movies)
+        let vc = MovieListViewController.getInstance(vm)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

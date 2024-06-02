@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol AddToPlaylistDelegate: AnyObject {
+    func didDismissController()
+}
+
 class AddToPlaylistViewController: BaseViewController<AddToPlaylistViewModel> {
 
     @IBOutlet weak var backView: UIView!
@@ -14,6 +18,8 @@ class AddToPlaylistViewController: BaseViewController<AddToPlaylistViewModel> {
     @IBOutlet weak var grabberView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    
+    weak var delegate: AddToPlaylistDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +55,7 @@ class AddToPlaylistViewController: BaseViewController<AddToPlaylistViewModel> {
     }
     
     @objc func backdropAction() {
+        delegate?.didDismissController()
         self.dismiss(animated: true)
     }
     
@@ -96,7 +103,7 @@ extension AddToPlaylistViewController: UITableViewDelegate, UITableViewDataSourc
             let playlist = viewModel.playlists[indexPath.row]
             PlaylistManager.shared.addMovie(movie: movie, in: playlist)
         }
-        self.dismiss(animated: true)
+        self.backdropAction()
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

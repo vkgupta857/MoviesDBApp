@@ -17,6 +17,7 @@ enum CategoryType {
     case nowPlaying
     case popular
     case topRated
+    case playlists
     
     var title: String {
         switch self {
@@ -28,12 +29,14 @@ enum CategoryType {
             return "Popular"
         case .topRated:
             return "Top Rated"
+        case .playlists:
+            return "Playlists"
         }
     }
 }
 
 class HomeViewModel: BaseViewModel {
-    var categories: [CategoryType] = [.trending, .nowPlaying, .popular, .topRated]
+    var categories: [CategoryType] = [.trending, .nowPlaying, .popular, .topRated, .playlists]
     var state: ViewModelState = .loading {
         didSet {
             apiStateUpdated?()
@@ -45,6 +48,7 @@ class HomeViewModel: BaseViewModel {
     var nowPlayingMovies: [Movie] = []
     var popularMovies: [Movie] = []
     var topRatedMovies: [Movie] = []
+    var playlists: [Playlist] = []
     
     var errorMessage: String?
     var apiError: APIError?
@@ -56,6 +60,7 @@ class HomeViewModel: BaseViewModel {
     
     func setupData() {
         self.state = .loading
+        getPlaylists()
         getTrendingWeekMovies()
         getTrendingTodayMovies()
         getNowPlayingMovies()
@@ -70,6 +75,12 @@ class HomeViewModel: BaseViewModel {
             }
             self?.state = .loaded
         }
+    }
+    
+    func getPlaylists() {
+        dispatchGroup.enter()
+        playlists = PlaylistManager.shared.getPlaylists()
+        dispatchGroup.leave()
     }
     
     private func getTrendingTodayMovies() {

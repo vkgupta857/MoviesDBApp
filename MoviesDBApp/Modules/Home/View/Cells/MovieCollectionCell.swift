@@ -46,4 +46,11 @@ class MovieCollectionCell: UICollectionViewCell, Reusable {
         titleLbl.text = movie.title
         yearLbl.text = "\(movie.releaseDate?.getDate()?.getYear() ?? 0)"
     }
+    
+    func configureCell(playlist: Playlist) {
+        imageView.image = UIImage(systemName: "movieclapper")
+        titleLbl.text = playlist.name
+        titleLbl.textAlignment = .center
+        yearLbl.isHidden = true
+    }
 }
