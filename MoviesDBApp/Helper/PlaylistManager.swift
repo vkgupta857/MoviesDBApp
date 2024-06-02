@@ -20,7 +20,7 @@ struct PlaylistManager {
         var playlists = UserDefaults.playlists
         
         (0..<playlists.count).forEach { idx in
-            if playlists[idx].id == playlist.id {
+            if playlists[idx].id == playlist.id, playlists[idx].movies.first(where: { $0.id == movie.id }) == nil {
                 playlists[idx].movies.append(movie)
             }
         }

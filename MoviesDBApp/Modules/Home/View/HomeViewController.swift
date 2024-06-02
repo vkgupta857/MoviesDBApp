@@ -26,6 +26,11 @@ class HomeViewController: UIViewController {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     func setupUI() {
         moviesTableView.delegate = self
         moviesTableView.dataSource = self
@@ -138,7 +143,22 @@ extension HomeViewController: MoviesTableCellDelegate {
     }
     
     func didTapAllBtn(cell: MoviesTableCell) {
-        
+        if let indexPath = moviesTableView.indexPath(for: cell) {
+            var movies: [Movie]
+            let category = self.viewModel.categories[indexPath.row]
+            switch category {
+            case .nowPlaying:
+                movies = viewModel.nowPlayingMovies
+            case .topRated:
+                movies = viewModel.topRatedMovies
+            case .popular:
+                movies = viewModel.popularMovies
+            case .trending:
+                movies = viewModel.trendingTodayMovies
+            }
+            let vc = MovieListViewController.getInstance(MovieListViewModel(title: category.title, detailType: .playlist, movies: movies))
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func didSelectToggleBtn() {

@@ -19,7 +19,7 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ii3-sd-APt">
                         <rect key="frame" x="0.0" y="7.9999999999999982" width="320" height="19.333333333333329"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -28,7 +28,7 @@
                     <constraint firstItem="Ii3-sd-APt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="2Lf-JK-PsR"/>
                     <constraint firstItem="Ii3-sd-APt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bqI-yW-Ht0"/>
                     <constraint firstAttribute="trailing" secondItem="Ii3-sd-APt" secondAttribute="trailing" id="gf9-Ha-QBX"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ii3-sd-APt" secondAttribute="bottom" constant="8" id="hkU-35-Vrx"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ii3-sd-APt" secondAttribute="bottom" constant="16" id="hkU-35-Vrx"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

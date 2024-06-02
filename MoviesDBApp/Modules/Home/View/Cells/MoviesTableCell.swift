@@ -51,6 +51,10 @@ class MoviesTableCell: UITableViewCell, Reusable {
         self.toggleBtn.transform = CGAffineTransformRotate(self.toggleBtn.transform, .pi)
         delegate?.didSelectToggleBtn()
     }
+    
+    @IBAction func allBtnAction(_ sender: Any) {
+        delegate?.didTapAllBtn(cell: self)
+    }
 }
 
 extension MoviesTableCell: MovieCellDelegate {
