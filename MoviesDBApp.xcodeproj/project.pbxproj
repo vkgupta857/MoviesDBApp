@@ -10,6 +10,7 @@
 		225E5BA0AE5CAB3D87A03094 /* Pods_MoviesDBApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54D2D792409259C276EDA06C /* Pods_MoviesDBApp.framework */; };
 		27A5AD7981E4025310DF9D95 /* Pods_MoviesDBAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B7D7FDF88C62D35D3C8C95D /* Pods_MoviesDBAppTests.framework */; };
 		595C2A01C7C19719D78B37D1 /* Pods_MoviesDBApp_MoviesDBAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AF3A573F2369040217039C2 /* Pods_MoviesDBApp_MoviesDBAppUITests.framework */; };
+		7526E3C62C0C8B67001C9B75 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7526E3C52C0C8B67001C9B75 /* CircularProgressBar.swift */; };
 		754A86952C0A4384009543FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754A86942C0A4384009543FF /* AppDelegate.swift */; };
 		754A86972C0A4384009543FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754A86962C0A4384009543FF /* SceneDelegate.swift */; };
 		754A86992C0A4384009543FF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754A86982C0A4384009543FF /* HomeViewController.swift */; };
@@ -73,6 +74,7 @@
 		490FCED242B5B2249E94F1CF /* Pods-MoviesDBApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesDBApp.debug.xcconfig"; path = "Target Support Files/Pods-MoviesDBApp/Pods-MoviesDBApp.debug.xcconfig"; sourceTree = "<group>"; };
 		54D2D792409259C276EDA06C /* Pods_MoviesDBApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoviesDBApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AF3A573F2369040217039C2 /* Pods_MoviesDBApp_MoviesDBAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoviesDBApp_MoviesDBAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7526E3C52C0C8B67001C9B75 /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
 		754A86912C0A4384009543FF /* MoviesDBApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviesDBApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		754A86942C0A4384009543FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		754A86962C0A4384009543FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				75FE5BCD2C0B8D4A0017442D /* UserDefaults.swift */,
 				75FE5BCF2C0B917A0017442D /* UIKit+Extensions.swift */,
 				75FE5BDF2C0B9B940017442D /* PlaylistManager.swift */,
+				7526E3C52C0C8B67001C9B75 /* CircularProgressBar.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				754A86CD2C0A4875009543FF /* HomeViewModel.swift in Sources */,
 				75FE5BD52C0B92080017442D /* BaseViewModel.swift in Sources */,
 				754A86992C0A4384009543FF /* HomeViewController.swift in Sources */,
+				7526E3C62C0C8B67001C9B75 /* CircularProgressBar.swift in Sources */,
 				75FE5BDD2C0B93760017442D /* PlaylistTableFooter.swift in Sources */,
 				75FE5BD92C0B93410017442D /* PlaylistTableCell.swift in Sources */,
 				75FE5BC92C0B8CC80017442D /* AddToPlaylistViewController.swift in Sources */,
