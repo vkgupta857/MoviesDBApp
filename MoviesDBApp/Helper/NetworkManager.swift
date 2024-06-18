@@ -58,7 +58,7 @@ class NetworkManager {
     
     let imageBaseUrl = "https://image.tmdb.org/t/p/w500"
     
-    let apiKey = "c77a451f55684047265eed8393fe387d"
+    let apiKey = ""
     
     func getRequest<T: Decodable>(endpoint: EndPoint, method: HTTPMethod = .get, queryParams: [String: Any]? = nil, responseModel: T.Type, completion: ((Swift.Result<T, APIError>) -> Void)?) {
         
