@@ -1,6 +1,6 @@
 # Movies DB App
 
-Movies DB App is an iOS app with the collection of movies from gatherd from [The Movie DB](https://www.themoviedb.org/)
+Movies DB App is an iOS app with the collection of movies from gathered from [The Movie DB](https://www.themoviedb.org/)
 
 It lists movies in the following categories
 - Trending
